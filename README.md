@@ -18,7 +18,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Config:
+```ruby
+self.chatwork_login_url = 'https://www.chatwork.com/login.php'
+self.chatwork_email = ''
+self.chatwork_password = ''
+
+notifier :debug do
+end
+
+notifier :email do
+  self.to = ''
+  self.from = ''
+  self.smtp_host = 'smtp.gmail.com'
+  self.smtp_port = 587
+  self.smtp_user = ''
+  self.smtp_password = ''
+  self.enable_tls = true
+end
+```
 
 ## Contributing
 

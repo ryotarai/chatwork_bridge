@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+require 'chatwork_bridge/cli'
+
+ChatworkBridge::CLI.start
+
