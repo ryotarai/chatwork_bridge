@@ -34,22 +34,22 @@ module ChatworkBridge
 
     private
     def init_driver
-      puts "Creating selenium webdriver..."
+      $logger.info "Creating selenium webdriver..."
       @driver = Selenium::WebDriver.for @browser
-      puts "Done."
+      $logger.info "Done."
     end
 
     def login
-      puts "Logging in..."
+      $logger.info "Logging in..."
       @driver.navigate.to @chatwork_login_url
       @driver.find_element(:css, '#login_email').send_keys(@chatwork_email)
       @driver.find_element(:css, 'input[name=password]').send_keys(@chatwork_password)
       @driver.find_element(:css, 'input[name=login]').click
-      puts "Done."
+      $logger.info "Done."
     end
 
     def inject_code
-      puts "Injecting code..."
+      $logger.info "Injecting code..."
       @driver.execute_script(<<-EOC)
         NotificationLogs = [];
         CW.enable_popup = true;
@@ -57,7 +57,7 @@ module ChatworkBridge
           NotificationLogs.push({icon: a, room_id: d, room_name: b, content: c});
         };
       EOC
-      puts "Done."
+      $logger.info "Done."
     end
 
     def process_notification(notification)

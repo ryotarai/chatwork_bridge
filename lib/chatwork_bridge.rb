@@ -4,6 +4,8 @@ require "chatwork_bridge/settings"
 require "chatwork_bridge/watcher"
 require "chatwork_bridge/notifiers"
 
+require 'logger'
+$logger = Logger.new(STDOUT)
+
 module ChatworkBridge
-  # Your code goes here...
 end

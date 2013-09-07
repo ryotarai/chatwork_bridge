@@ -15,6 +15,14 @@ module ChatworkBridge
       notifier.instance_eval(&block)
       @notifiers << notifier
     end
+
+    def log_device=(device)
+      $logger = Logger.new(device)
+    end
+
+    def log_level=(level)
+      $logger.level = level
+    end
   end
 end
 

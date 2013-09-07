@@ -4,7 +4,7 @@ module ChatworkBridge
   module Notifiers
     class DebugNotifier
       def notify(notification)
-        p notification
+        $logger.debug notification
       end
     end
   end
