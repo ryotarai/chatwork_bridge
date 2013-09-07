@@ -21,14 +21,14 @@ module ChatworkBridge
         login
         inject_code
         loop do
-          notification = @driver.execute_script("return NotificationLogs.shift();")
+          notification = fetch_latest_notification
           unless notification.nil?
             process_notification(notification)
           end
           sleep @interval
         end
       ensure
-        @driver.quit
+        quit_driver
       end
     end
 
@@ -37,6 +37,14 @@ module ChatworkBridge
       $logger.info "Creating selenium webdriver..."
       @driver = Selenium::WebDriver.for @browser
       $logger.info "Done."
+    end
+
+    def quit_driver
+      @driver.quit
+    end
+
+    def fetch_latest_notification
+      @driver.execute_script("return NotificationLogs.shift();")
     end
 
     def login
