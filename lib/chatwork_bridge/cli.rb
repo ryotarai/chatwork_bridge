@@ -3,7 +3,7 @@ require 'thor'
 
 module ChatworkBridge
   class CLI < Thor
-    class_option :config, type: :string, required: true
+    class_option :config, type: :string
 
     desc 'watch', 'Start watching chatwork'
     def watch
@@ -19,8 +19,16 @@ module ChatworkBridge
 
     private
     def load_settings
+      config_paths = %w! ~/.chatwork_bridge.config.rb !
+      config_paths.unshift(options[:config]) if options[:config]
+      config_paths.map! {|path| File.expand_path(path) }
+      config_path = config_paths.find {|path| File.exists?(path) }
+      if config_path.nil?
+        $logger.fatal "Config file is not found. (Search Paths: #{config_paths})"
+        abort
+      end
       Settings.new.tap do |s|
-        s.instance_eval File.read(options[:config])
+        s.instance_eval File.read(config_path)
       end
     end
   end
