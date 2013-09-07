@@ -9,7 +9,7 @@ module ChatworkBridge
 
       def notify(notification)
         send_email(
-          "Re: [ChatWork] #{notification['room_name']}",
+          "[ChatWork] #{notification['room_name']}",
           notification['content']
         )
         $logger.info "Email sent to #{self.to}"
