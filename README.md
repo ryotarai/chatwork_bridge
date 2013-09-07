@@ -1,24 +1,14 @@
 # ChatworkBridge
 
-TODO: Write a gem description
+Send ChatWork notifications via email, stdout or etc...
 
 ## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'chatwork_bridge'
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install chatwork_bridge
 
 ## Usage
 
-Config:
+Put a config file named `~/.chatwork_bridge.config.rb`:
 ```ruby
 self.chatwork_login_url = 'https://www.chatwork.com/login.php'
 self.chatwork_email = ''
@@ -36,6 +26,11 @@ notifier :email do
   self.smtp_password = ''
   self.enable_tls = true
 end
+```
+
+Run watcher:
+```
+$ chatwork_bridge watch
 ```
 
 ## Contributing
