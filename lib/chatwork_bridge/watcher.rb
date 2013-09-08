@@ -21,6 +21,10 @@ module ChatworkBridge
         login
         inject_code
         loop do
+          if Time.now - @last_login_time > 60 * 60 * 6
+            # 6 hours
+            login
+          end
           notification = fetch_latest_notification
           unless notification.nil?
             process_notification(notification)
@@ -54,6 +58,7 @@ module ChatworkBridge
       @driver.find_element(:css, 'input[name=password]').send_keys(@chatwork_password)
       @driver.find_element(:css, 'input[name=login]').click
       $logger.info "Done."
+      @last_login_time = Time.now
     end
 
     def inject_code
