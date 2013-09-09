@@ -18,12 +18,10 @@ module ChatworkBridge
     def run
       begin
         init_driver
-        login
-        inject_code
         loop do
           if Time.now - @last_login_time > 60 * 60 * 6
             # 6 hours
-            login
+            init_driver
           end
           notification = fetch_latest_notification
           unless notification.nil?
@@ -38,7 +36,14 @@ module ChatworkBridge
 
     private
     def init_driver
+      create_driver
+      login
+      inject_code
+    end
+
+    def create_driver
       $logger.info "Creating selenium webdriver..."
+      quit_driver if @driver
       @driver = Selenium::WebDriver.for @browser
       $logger.info "Done."
     end
